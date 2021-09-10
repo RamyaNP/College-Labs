@@ -1,0 +1,8 @@
+Contents of file file1.txt
+hii
+tata
+hello
+Contents of file file2.txt
+ngy
+ksn
+222
