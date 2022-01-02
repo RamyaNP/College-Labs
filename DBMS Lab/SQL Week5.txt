@@ -1,0 +1,463 @@
+Microsoft Windows [Version 10.0.19043.1237]
+(c) Microsoft Corporation. All rights reserved.
+
+E:\PostgreSQL\9.6\bin>psql -U postgres
+Password for user postgres:
+psql (9.6.23)
+WARNING: Console code page (437) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+postgres=# \d
+No relations found.
+postgres=# exit
+postgres-# ^X\q
+
+E:\PostgreSQL\9.6\bin>psql -U postgres
+Password for user postgres:
+psql (9.6.23)
+WARNING: Console code page (437) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+postgres=# create user pes1ug19cs380 with password 12345
+postgres-# \q
+
+E:\PostgreSQL\9.6\bin>psql -U pes1ug19cs380 -f C:\Users\RNP\Desktop\companyddl.sql
+Password for user pes1ug19cs380:
+psql: FATAL:  password authentication failed for user "pes1ug19cs380"
+
+E:\PostgreSQL\9.6\bin>psql -U pes1ug19cs380 -f C:\Users\RNP\Desktop\companyddl.sql
+Password for user pes1ug19cs380:
+psql: FATAL:  password authentication failed for user "pes1ug19cs380"
+
+E:\PostgreSQL\9.6\bin>psql -U pes1ug19cs380
+Password for user pes1ug19cs380:
+psql: FATAL:  password authentication failed for user "pes1ug19cs380"
+
+E:\PostgreSQL\9.6\bin>psql -U postgres
+Password for user postgres:
+psql (9.6.23)
+WARNING: Console code page (437) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+postgres=# create user pes1ug19cs380 with password 12345;
+ERROR:  syntax error at or near "12345"
+LINE 1: create user pes1ug19cs380 with password 12345;
+                                                ^
+postgres=# create user pes1ug19cs380 with password "12345";
+ERROR:  syntax error at or near ""12345""
+LINE 1: create user pes1ug19cs380 with password "12345";
+                                                ^
+postgres=# create user pes1ug19cs380 with password "12345" createdb;
+ERROR:  syntax error at or near ""12345""
+LINE 1: create user pes1ug19cs380 with password "12345" createdb;
+                                                ^
+postgres=# create user pes1ug19cs380 with password '12345' createdb;
+CREATE ROLE
+postgres=# \q
+
+E:\PostgreSQL\9.6\bin>psql -U pes1ug19cs380 -f C:\Users\RNP\Desktop\companyddl.sql
+Password for user pes1ug19cs380:
+psql:C:/Users/RNP/Desktop/companyddl.sql:1: ERROR:  must be owner of database company
+psql:C:/Users/RNP/Desktop/companyddl.sql:2: ERROR:  database "company" already exists
+You are now connected to database "company" as user "pes1ug19cs380".
+psql:C:/Users/RNP/Desktop/companyddl.sql:18: ERROR:  relation "employee" already exists
+psql:C:/Users/RNP/Desktop/companyddl.sql:27: ERROR:  relation "department" already exists
+psql:C:/Users/RNP/Desktop/companyddl.sql:33: ERROR:  relation "dept_locations" already exists
+psql:C:/Users/RNP/Desktop/companyddl.sql:43: ERROR:  relation "project" already exists
+psql:C:/Users/RNP/Desktop/companyddl.sql:52: ERROR:  relation "works_on" already exists
+psql:C:/Users/RNP/Desktop/companyddl.sql:61: ERROR:  relation "dependent" already exists
+psql:C:/Users/RNP/Desktop/companyddl.sql:64: ERROR:  must be owner of relation employee
+
+E:\PostgreSQL\9.6\bin>psql -U postgres
+Password for user postgres:
+psql (9.6.23)
+WARNING: Console code page (437) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+postgres=# drop database company;
+DROP DATABASE
+postgres=# \q
+
+E:\PostgreSQL\9.6\bin>psql -U pes1ug19cs380 -f C:\Users\RNP\Desktop\companyddl.sql
+Password for user pes1ug19cs380:
+psql:C:/Users/RNP/Desktop/companyddl.sql:1: ERROR:  database "company" does not exist
+CREATE DATABASE
+You are now connected to database "company" as user "pes1ug19cs380".
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+CREATE TABLE
+ALTER TABLE
+
+E:\PostgreSQL\9.6\bin>psql -U pes1ug19cs380 -f C:\Users\RNP\Desktop\company_insert.sql
+Password for user pes1ug19cs380:
+You are now connected to database "company" as user "pes1ug19cs380".
+ALTER TABLE
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+psql:C:/Users/RNP/Desktop/company_insert.sql:46: ERROR:  null value in column "hours" violates not-null constraint
+DETAIL:  Failing row contains (888665555, 20, null).
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+INSERT 0 1
+ALTER TABLE
+
+E:\PostgreSQL\9.6\bin>psql -U pes1ug19cs380
+Password for user pes1ug19cs380:
+psql (9.6.23)
+WARNING: Console code page (437) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+pes1ug19cs380=> \c
+You are now connected to database "pes1ug19cs380" as user "pes1ug19cs380".
+pes1ug19cs380=> \c company
+You are now connected to database "company" as user "pes1ug19cs380".
+company=> \dt
+                List of relations
+ Schema |      Name      | Type  |     Owner
+--------+----------------+-------+---------------
+ public | department     | table | pes1ug19cs380
+ public | dependent      | table | pes1ug19cs380
+ public | dept_locations | table | pes1ug19cs380
+ public | employee       | table | pes1ug19cs380
+ public | project        | table | pes1ug19cs380
+ public | works_on       | table | pes1ug19cs380
+(6 rows)
+
+
+company=> create table temp_380(lname varchar, pname varchar, hr_per_week float);)
+CREATE TABLE
+company-> insert into temp_380
+company-> select lname, pname, hours from employee as e, project as p, works_on as w where w.pno=p.p.pnumber and e.ssn=w.essn;
+ERROR:  syntax error at or near ")"
+LINE 1: )
+        ^
+company=> insert into temp_380 select lname, pname, hours from employee as e, project as p, works_on as w where w.pno=p.p.pnumber and e.ssn=w.essn;
+ERROR:  invalid reference to FROM-clause entry for table "p"
+LINE 1: ...yee as e, project as p, works_on as w where w.pno=p.p.pnumbe...
+                                                             ^
+HINT:  There is an entry for table "p", but it cannot be referenced from this part of the query.
+company=> insert into temp_380 select lname, pname, hours from employee as e, project as p, works_on as w where w.pno=p.pnumber and e.ssn=w.essn;
+INSERT 0 15
+company=> table temp_380
+company-> ;
+  lname  |      pname      | hr_per_week
+---------+-----------------+-------------
+ Smith   | ProductX        |        32.5
+ Smith   | ProductY        |         7.5
+ Narayan | ProductZ        |          40
+ English | ProductX        |          20
+ English | ProductY        |          20
+ Wong    | ProductY        |          10
+ Wong    | ProductZ        |          10
+ Wong    | Computerization |          10
+ Wong    | Reorganization  |          10
+ Zelaya  | Newbenefits     |          30
+ Zelaya  | Computerization |          10
+ Jabbar  | Computerization |          35
+ Jabbar  | Newbenefits     |           5
+ Wallace | Newbenefits     |          20
+ Wallace | Reorganization  |          15
+(15 rows)
+
+
+company=> table project;
+      pname      | pnumber | plocation | dnum
+-----------------+---------+-----------+------
+ ProductX        |       1 | Bellaire  |    5
+ ProductY        |       2 | Sugarland |    5
+ ProductZ        |       3 | Houston   |    5
+ Computerization |      10 | Stafford  |    4
+ Reorganization  |      20 | Houston   |    1
+ Newbenefits     |      30 | Stafford  |    4
+(6 rows)
+
+
+company=> update project set ploctaion='Bellaire', dnum= 5 where pnumber = 10;
+ERROR:  column "ploctaion" of relation "project" does not exist
+LINE 1: update project set ploctaion='Bellaire', dnum= 5 where pnumb...
+                           ^
+company=> update project set ploction='Bellaire', dnum= 5 where pnumber = 10;
+ERROR:  column "ploction" of relation "project" does not exist
+LINE 1: update project set ploction='Bellaire', dnum= 5 where pnumbe...
+                           ^
+company=> update project set plocation='Bellaire', dnum= 5 where pnumber = 10;
+UPDATE 1
+company=> table project;
+      pname      | pnumber | plocation | dnum
+-----------------+---------+-----------+------
+ ProductX        |       1 | Bellaire  |    5
+ ProductY        |       2 | Sugarland |    5
+ ProductZ        |       3 | Houston   |    5
+ Reorganization  |      20 | Houston   |    1
+ Newbenefits     |      30 | Stafford  |    4
+ Computerization |      10 | Bellaire  |    5
+(6 rows)
+
+
+company=> select * from employee;
+  fname   | minit |  lname  |    ssn    |   bdate    |         address          | gender |  salary  | super_ssn | dno
+----------+-------+---------+-----------+------------+--------------------------+--------+----------+-----------+-----
+ James    | E     | Borg    | 888665555 | 1937-11-10 | 450 Stone, Houston,TX    | M      | 55000.00 |           |   1
+ John     | B     | Smith   | 123456789 | 1965-01-09 | 731 Fondren,Houston,TX   | M      | 30000.00 | 888665555 |   5
+ Franklin | T     | Wong    | 333445555 | 1955-12-08 | 638 voss,Houston,TX      | M      | 40000.00 | 888665555 |   5
+ Alicia   | J     | Zelaya  | 999887777 | 1968-01-19 | 3321 Castle,Spring,Tx    | F      | 25000.00 | 333445555 |   4
+ Jennifer | S     | Wallace | 987654321 | 1941-06-20 | 291 Berry, Bellaire,Tx   | F      | 43000.00 | 333445555 |   4
+ Ramesh   | K     | Narayan | 666884444 | 1962-09-15 | 975 Fire Oak, Humble, TX | M      | 38000.00 | 333445555 |   5
+ Joyce    | A     | English | 453453453 | 1972-07-31 | 5631 Rice,Houston,TX     | F      | 25000.00 | 333445555 |   5
+ Ahmed    | V     | Jabbar  | 987987987 | 1969-03-29 | 980 Dallas, Houston,TX   | M      | 25000.00 | 987654321 |   4
+(8 rows)
+
+
+company=> update employee set salary= salary*1.1 where dno=5;
+UPDATE 4
+company=> \dt employee;
+             List of relations
+ Schema |   Name   | Type  |     Owner
+--------+----------+-------+---------------
+ public | employee | table | pes1ug19cs380
+(1 row)
+
+
+company=> table employee;
+  fname   | minit |  lname  |    ssn    |   bdate    |         address          | gender |  salary  | super_ssn | dno
+----------+-------+---------+-----------+------------+--------------------------+--------+----------+-----------+-----
+ James    | E     | Borg    | 888665555 | 1937-11-10 | 450 Stone, Houston,TX    | M      | 55000.00 |           |   1
+ Alicia   | J     | Zelaya  | 999887777 | 1968-01-19 | 3321 Castle,Spring,Tx    | F      | 25000.00 | 333445555 |   4
+ Jennifer | S     | Wallace | 987654321 | 1941-06-20 | 291 Berry, Bellaire,Tx   | F      | 43000.00 | 333445555 |   4
+ Ahmed    | V     | Jabbar  | 987987987 | 1969-03-29 | 980 Dallas, Houston,TX   | M      | 25000.00 | 987654321 |   4
+ John     | B     | Smith   | 123456789 | 1965-01-09 | 731 Fondren,Houston,TX   | M      | 33000.00 | 888665555 |   5
+ Franklin | T     | Wong    | 333445555 | 1955-12-08 | 638 voss,Houston,TX      | M      | 44000.00 | 888665555 |   5
+ Ramesh   | K     | Narayan | 666884444 | 1962-09-15 | 975 Fire Oak, Humble, TX | M      | 41800.00 | 333445555 |   5
+ Joyce    | A     | English | 453453453 | 1972-07-31 | 5631 Rice,Houston,TX     | F      | 27500.00 | 333445555 |   5
+(8 rows)
+
+
+company=> delete from employee where lname='Brown';
+DELETE 0
+company=> set session_replication_role='replica';
+ERROR:  permission denied to set parameter "session_replication_role"
+company=> set session_replication_role='replica' as postgres;
+ERROR:  syntax error at or near "as"
+LINE 1: set session_replication_role='replica' as postgres;
+                                               ^
+company=> delete from employee where employee.ss not in (select essn from dependent);
+ERROR:  column employee.ss does not exist
+LINE 1: delete from employee where employee.ss not in (select essn f...
+                                   ^
+HINT:  Perhaps you meant to reference the column "employee.ssn".
+company=> delete from employee where employee.ssn not in (select essn from dependent);
+ERROR:  update or delete on table "employee" violates foreign key constraint "employee_super_ssn_fkey" on table "employee"
+DETAIL:  Key (ssn)=(888665555) is still referenced from table "employee".
+company=> \q
+
+E:\PostgreSQL\9.6\bin>psql -U postgres
+Password for user postgres:
+psql (9.6.23)
+WARNING: Console code page (437) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+postgres=# alter database company owner to postgres;
+ALTER DATABASE
+postgres=# \c company;
+You are now connected to database "company" as user "postgres".
+company=# set session_replication_role='replica' as postgres;
+ERROR:  syntax error at or near "as"
+LINE 1: set session_replication_role='replica' as postgres;
+                                               ^
+company=# set session_replication_role='replica';
+SET
+company=# delete from employee where employee.ssn not in (select essn from dependent);
+DELETE 5
+company=# table employee;
+  fname   | minit |  lname  |    ssn    |   bdate    |        address         | gender |  salary  | super_ssn | dno
+----------+-------+---------+-----------+------------+------------------------+--------+----------+-----------+-----
+ Jennifer | S     | Wallace | 987654321 | 1941-06-20 | 291 Berry, Bellaire,Tx | F      | 43000.00 | 333445555 |   4
+ John     | B     | Smith   | 123456789 | 1965-01-09 | 731 Fondren,Houston,TX | M      | 33000.00 | 888665555 |   5
+ Franklin | T     | Wong    | 333445555 | 1955-12-08 | 638 voss,Houston,TX    | M      | 44000.00 | 888665555 |   5
+(3 rows)
+
+
+company=# set session_replication_role='origin';
+SET
+company=# begin;
+BEGIN
+company=# create table transaction_455(sender varcahr
+company(# (15), amount int);
+ERROR:  type "varcahr" does not exist
+LINE 1: create table transaction_455(sender varcahr
+                                            ^
+company=# create table transaction_455(sender varcahr(15), amount int);
+ERROR:  current transaction is aborted, commands ignored until end of transaction block
+company=# begin;
+ERROR:  current transaction is aborted, commands ignored until end of transaction block
+company=# begin;
+ERROR:  current transaction is aborted, commands ignored until end of transaction block
+company=# end transcation;
+ERROR:  syntax error at or near "transcation"
+LINE 1: end transcation;
+            ^
+company=# end transacation;
+ERROR:  syntax error at or near "transacation"
+LINE 1: end transacation;
+            ^
+company=# end transaction;
+ROLLBACK
+company=# end transaction;
+WARNING:  there is no transaction in progress
+COMMIT
+company=# begin;
+BEGIN
+company=# create table transaction_380(sender varchar(15), receiver varchar(15), amount int);
+CREATE TABLE
+company=# insert into transaction_380 values ('Person', 'Woman', 6000);
+INSERT 0 1
+company=# insert into transaction_380 values ('Person2', 'Woman2', 16000);
+INSERT 0 1
+company=# insert into transaction_380 values ('Pers', 'Man', 10000);
+INSERT 0 1
+company=# insert into transaction_380 values ('Pers1', 'Man2', 10000);
+INSERT 0 1
+company=# end transaction;
+COMMIT
+company=# select * from transaction_380;
+ sender  | receiver | amount
+---------+----------+--------
+ Person  | Woman    |   6000
+ Person2 | Woman2   |  16000
+ Pers    | Man      |  10000
+ Pers1   | Man2     |  10000
+(4 rows)
+
+
+company=# begin
+company-# ;
+BEGIN
+company=# create table transaction_380(sender varchar(15), receiver varchar(15), amount int);
+ERROR:  relation "transaction_380" already exists
+company=# create table transaction_380_2(sender varchar(15), receiver varchar(15), amount int);
+ERROR:  current transaction is aborted, commands ignored until end of transaction block
+company=# end transaction;
+ROLLBACK
+company=# begin;
+BEGIN
+company=# create table transaction_380_2(sender varchar(15), receiver varchar(15), amount int);
+CREATE TABLE
+company=# insert into transaction_380_2 values ('Person', 'Woman', 6000);
+INSERT 0 1
+company=# insert into transaction_380_2 values ('Person1', 'Woman2', 16000);
+INSERT 0 1
+company=# rollback;
+ROLLBACK
+company=# select * from transaction_380_2;
+ERROR:  relation "transaction_380_2" does not exist
+LINE 1: select * from transaction_380_2;
+                      ^
+company=# begin;
+BEGIN
+company=# create table transaction_380_3(sender varchar(15), receiver varchar(15), amount int);
+CREATE TABLE
+company=# insert into transaction_380_3 values ('Person', 'Woman', 6000);
+INSERT 0 1
+company=# insert into transaction_380_3 values ('Person2', 'Woman2', 16000);
+INSERT 0 1
+company=# insert into transaction_380_3 values ('Pers', 'Man', 10000);
+INSERT 0 1
+company=# insert into transaction_380_3 values ('Pers1', 'Man2', 10000);
+INSERT 0 1
+company=# savepoint s;
+SAVEPOINT
+company=# insert into transaction_380_3 values ('Pen2', 'Wo2', 86000);
+INSERT 0 1
+company=# insert into transaction_380_3 values ('Pekkkn2', 'lllWo2', 186000);
+INSERT 0 1
+company=# insert into transaction_380_3 values ('Pekkkn92', 'llllWo2',8000);
+INSERT 0 1
+company=# rollback;
+ROLLBACK
+company=# table transaction_380_3;
+ERROR:  relation "transaction_380_3" does not exist
+LINE 1: table transaction_380_3;
+              ^
+company=# select * from transaction_380_3;
+ERROR:  relation "transaction_380_3" does not exist
+LINE 1: select * from transaction_380_3;
+                      ^
+company=# begin;
+BEGIN
+company=# create table transaction_380_3(sender varchar(15), receiver varchar(15), amount int);
+CREATE TABLE
+company=# insert into transaction_380_3 values ('Person', 'Woman', 6000);
+INSERT 0 1
+company=# insert into transaction_380_3 values ('Person2', 'Woman2', 16000);
+INSERT 0 1
+company=# savepoint s;
+SAVEPOINT
+company=# insert into transaction_380_3 values ('Pen2', 'Wo2', 86000);
+INSERT 0 1
+company=# insert into transaction_380_3 values ('Pers1', 'Man2', 10000);
+INSERT 0 1
+company=# rollback to s;
+ROLLBACK
+company=# select * from transaction_380_3;
+ sender  | receiver | amount
+---------+----------+--------
+ Person  | Woman    |   6000
+ Person2 | Woman2   |  16000
+(2 rows)
+
+
+company=#

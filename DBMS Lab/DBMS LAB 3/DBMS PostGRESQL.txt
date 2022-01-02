@@ -1,0 +1,461 @@
+
+
+E:\PostgreSQL\9.6\bin>psql -U postgres
+Password for user postgres:
+psql (9.6.23)
+WARNING: Console code page (437) differs from Windows code page (1252)
+         8-bit characters might not work correctly. See psql reference
+         page "Notes for Windows users" for details.
+Type "help" for help.
+
+postgres=# create database lab3
+postgres-# create database lab3;
+ERROR:  syntax error at or near "create"
+LINE 2: create database lab3;
+        ^
+postgres=# create database lab3;
+ERROR:  database "lab3" already exists
+postgres=# create database dbmslab3;
+CREATE DATABASE
+postgres=# \c dbmslab3
+You are now connected to database "dbmslab3" as user "postgres".
+dbmslab3=# create table Doctor(d_id varchar(4), d_name char, d_phone int(10));
+ERROR:  syntax error at or near "("
+LINE 1: ...table Doctor(d_id varchar(4), d_name char, d_phone int(10));
+                                                                 ^
+dbmslab3=# create table Doctor(d_id varchar(4), d_name char, d_phone int(10));
+ERROR:  syntax error at or near "("
+LINE 1: ...table Doctor(d_id varchar(4), d_name char, d_phone int(10));
+                                                                 ^
+dbmslab3=# create table Doctor(d_id varchar(4), d_name char, d_phone int);
+CREATE TABLE
+dbmslab3=# \d
+         List of relations
+ Schema |  Name  | Type  |  Owner
+--------+--------+-------+----------
+ public | doctor | table | postgres
+(1 row)
+
+
+dbmslab3=# \d doctor
+           Table "public.doctor"
+ Column  |         Type         | Modifiers
+---------+----------------------+-----------
+ d_id    | character varying(4) |
+ d_name  | character(1)         |
+ d_phone | integer              |
+
+
+dbmslab3=# drop table doctor
+dbmslab3-# \d
+         List of relations
+ Schema |  Name  | Type  |  Owner
+--------+--------+-------+----------
+ public | doctor | table | postgres
+(1 row)
+
+
+dbmslab3-# drop table doctor;
+ERROR:  syntax error at or near "drop"
+LINE 2: drop table doctor;
+        ^
+dbmslab3=# drop table doctor;
+DROP TABLE
+dbmslab3=# create table Doctor(d_id varchar(4), d_name text, d_phone int);
+CREATE TABLE
+dbmslab3=# \d
+         List of relations
+ Schema |  Name  | Type  |  Owner
+--------+--------+-------+----------
+ public | doctor | table | postgres
+(1 row)
+
+
+dbmslab3=# \d doctor
+           Table "public.doctor"
+ Column  |         Type         | Modifiers
+---------+----------------------+-----------
+ d_id    | character varying(4) |
+ d_name  | text                 |
+ d_phone | integer              |
+
+
+dbmslab3=# create table Patient(p_id varchar(4), p_name text, diagnosis text, age int);
+CREATE TABLE
+dbmslab3=# create table Medicine(med_id varchar(4), med_name text);
+CREATE TABLE
+dbmslab3=# create table Prescription(p_id varchar(4), d_id varchar(4), med_id varchar(4), qty int);
+CREATE TABLE
+dbmslab3=# create table Bed(B_id varchar(4), ward_no int);
+CREATE TABLE
+dbmslab3=# create table Bed_Patient(p_id varchar(4), B_id varchar(4), in_date varchar(10), out_date varchar(10));
+CREATE TABLE
+dbmslab3=# \d
+            List of relations
+ Schema |     Name     | Type  |  Owner
+--------+--------------+-------+----------
+ public | bed          | table | postgres
+ public | bed_patient  | table | postgres
+ public | doctor       | table | postgres
+ public | medicine     | table | postgres
+ public | patient      | table | postgres
+ public | prescription | table | postgres
+(6 rows)
+
+
+dbmslab3=# alter table doctor add constraint pk PRIMARY KEY(d_id);
+ALTER TABLE
+dbmslab3=# alter table patient add constraint pk PRIMARY KEY(p_id);
+ERROR:  relation "pk" already exists
+dbmslab3=# alter table patient add constraint pk2 PRIMARY KEY(p_id);
+ALTER TABLE
+dbmslab3=# alter table Medicine add constraint pk3 PRIMARY KEY(med_id);
+ALTER TABLE
+dbmslab3=# alter table bed add constraint pk4 PRIMARY KEY(B_id);
+ALTER TABLE
+dbmslab3=# alter table Prescription add constraint fk1 FOREIGN KEY(d_id) reference doctor(d_id);
+ERROR:  syntax error at or near "reference"
+LINE 1: ...Prescription add constraint fk1 FOREIGN KEY(d_id) reference ...
+                                                             ^
+dbmslab3=# alter table Prescription add constraint fk1 FOREIGN KEY(d_id) references doctor(d_id);
+ALTER TABLE
+dbmslab3=# alter table Prescription add constraint fk2 FOREIGN KEY(p_id) references patient(p_id);
+ALTER TABLE
+dbmslab3=# alter table Bed_Patient add constraint fk3 FOREIGN KEY(p_id) references patient(p_id);
+ALTER TABLE
+dbmslab3=# alter table Bed_Patient add constraint fk4 FOREIGN KEY(B_id) references patient(B_id);
+ERROR:  column "b_id" referenced in foreign key constraint does not exist
+dbmslab3=# alter table Bed_Patient add constraint fk4 FOREIGN KEY(B_id) references bed(B_id);
+ALTER TABLE
+dbmslab3=# \d
+            List of relations
+ Schema |     Name     | Type  |  Owner
+--------+--------------+-------+----------
+ public | bed          | table | postgres
+ public | bed_patient  | table | postgres
+ public | doctor       | table | postgres
+ public | medicine     | table | postgres
+ public | patient      | table | postgres
+ public | prescription | table | postgres
+(6 rows)
+
+
+dbmslab3=# insert into table doctor values(dr01,Dr. ABC, +91902100299);
+ERROR:  syntax error at or near "table"
+LINE 1: insert into table doctor values(dr01,Dr. ABC, +91902100299);
+                    ^
+dbmslab3=# insert into doctor values(dr01,Dr. ABC, +91902100299);
+ERROR:  column "dr01" does not exist
+LINE 1: insert into doctor values(dr01,Dr. ABC, +91902100299);
+                                  ^
+dbmslab3=# insert into Doctor(d_id,d_name,d_phone) values(dr01,Dr. ABC, +91902100299);
+ERROR:  column "dr01" does not exist
+LINE 1: insert into Doctor(d_id,d_name,d_phone) values(dr01,Dr. ABC,...
+                                                       ^
+dbmslab3=# \d doctor
+           Table "public.doctor"
+ Column  |         Type         | Modifiers
+---------+----------------------+-----------
+ d_id    | character varying(4) | not null
+ d_name  | text                 |
+ d_phone | integer              |
+Indexes:
+    "pk" PRIMARY KEY, btree (d_id)
+Referenced by:
+    TABLE "prescription" CONSTRAINT "fk1" FOREIGN KEY (d_id) REFERENCES doctor(d_id)
+
+
+dbmslab3=# insert into doctor values('dr01','Dr. ABC', '9021002991');
+ERROR:  value "9021002991" is out of range for type integer
+LINE 1: insert into doctor values('dr01','Dr. ABC', '9021002991');
+                                                    ^
+dbmslab3=# alter table doctor alter column d_phone type varchar(10)
+dbmslab3-# alter table doctor alter column d_phone type varchar(10);
+ERROR:  syntax error at or near "alter"
+LINE 2: alter table doctor alter column d_phone type varchar(10);
+        ^
+dbmslab3=# alter table doctor alter column d_phone type varchar(10);;
+ALTER TABLE
+dbmslab3=# insert into doctor values('dr01','Dr. ABC', '9021002991');
+INSERT 0 1
+dbmslab3=# \d doctor
+            Table "public.doctor"
+ Column  |         Type          | Modifiers
+---------+-----------------------+-----------
+ d_id    | character varying(4)  | not null
+ d_name  | text                  |
+ d_phone | character varying(10) |
+Indexes:
+    "pk" PRIMARY KEY, btree (d_id)
+Referenced by:
+    TABLE "prescription" CONSTRAINT "fk1" FOREIGN KEY (d_id) REFERENCES doctor(d_id)
+
+
+dbmslab3=# \d
+            List of relations
+ Schema |     Name     | Type  |  Owner
+--------+--------------+-------+----------
+ public | bed          | table | postgres
+ public | bed_patient  | table | postgres
+ public | doctor       | table | postgres
+ public | medicine     | table | postgres
+ public | patient      | table | postgres
+ public | prescription | table | postgres
+(6 rows)
+
+
+dbmslab3=# table doctor
+dbmslab3-# table doctor;
+ERROR:  syntax error at or near "table"
+LINE 2: table doctor;
+        ^
+dbmslab3=# table doctor;
+ d_id | d_name  |  d_phone
+------+---------+------------
+ dr01 | Dr. ABC | 9021002991
+(1 row)
+
+
+dbmslab3=# insert into doctor values('dr02','Dr. DEF', '7011548672');
+INSERT 0 1
+dbmslab3=# insert into doctor values('dr02','Dr. GEH', '70115487782');
+ERROR:  value too long for type character varying(10)
+dbmslab3=# insert into doctor values('dr02','Dr. GEH', '7011548778');
+ERROR:  duplicate key value violates unique constraint "pk"
+DETAIL:  Key (d_id)=(dr02) already exists.
+dbmslab3=# insert into doctor values('dr03','Dr. GEH', '7011548778');
+INSERT 0 1
+dbmslab3=# insert into doctor values('dr04','Dr. HGH', '7111548778');
+INSERT 0 1
+dbmslab3=# insert into doctor values('dr05','Dr. PHGH', '71311548778');
+ERROR:  value too long for type character varying(10)
+dbmslab3=# insert into doctor values('dr05','Dr. PHGH', '7131154877');
+INSERT 0 1
+dbmslab3=# insert into Patient values('pt01','Mr. PHGH', 'Pneumonia', 10);
+INSERT 0 1
+dbmslab3=# insert into Patient values('pt02','Mr. PPPH', 'Covid', 39);
+INSERT 0 1
+dbmslab3=# insert into Patient values('pt03','Mr. SSH', 'Diabetes', 49);
+INSERT 0 1
+dbmslab3=# insert into Patient values('pt04','Mr. SPPLH', 'NA', 48);
+INSERT 0 1
+dbmslab3=# insert into Patient values('pt05','Mrs. SPPL', 'NA', 78);
+INSERT 0 1
+dbmslab3=# insert into Medicine values('md01', 'PlkSP-520');
+INSERT 0 1
+dbmslab3=# insert into Medicine values('md02', 'PLLP');
+INSERT 0 1
+dbmslab3=# insert into Medicine values('md03', 'PLLP#44');
+INSERT 0 1
+dbmslab3=# insert into Medicine values('md04', 'LLGP-234');
+INSERT 0 1
+dbmslab3=# insert into Medicine values('md05', 'LGP-440');
+INSERT 0 1
+dbmslab3=# insert into Bed values('bd01',1);
+INSERT 0 1
+dbmslab3=# insert into Bed values('bd02',1);
+INSERT 0 1
+dbmslab3=# insert into Bed values('bd03',2);
+INSERT 0 1
+dbmslab3=# insert into Bed values('bd04',2);
+INSERT 0 1
+dbmslab3=# insert into Bed values('bd05',3);
+INSERT 0 1
+dbmslab3=# \d Prescription
+        Table "public.prescription"
+ Column |         Type         | Modifiers
+--------+----------------------+-----------
+ p_id   | character varying(4) |
+ d_id   | character varying(4) |
+ med_id | character varying(4) |
+ qty    | integer              |
+Foreign-key constraints:
+    "fk1" FOREIGN KEY (d_id) REFERENCES doctor(d_id)
+    "fk2" FOREIGN KEY (p_id) REFERENCES patient(p_id)
+
+
+dbmslab3=# alter table Prescription add constraint fk11 FOREIGN KEY(med_id) references Mediccine(med_id);
+ERROR:  relation "mediccine" does not exist
+dbmslab3=# alter table Prescription add constraint fk11 FOREIGN KEY(med_id) references Medicine(med_id);
+ALTER TABLE
+dbmslab3=# alter table prescription drop column qty
+dbmslab3-# alter table prescription drop column qty;
+ERROR:  syntax error at or near "alter"
+LINE 2: alter table prescription drop column qty;
+        ^
+dbmslab3=# alter table prescription drop column qty;;
+ALTER TABLE
+dbmslab3=# insert into prescription values(pt01,dr01, md03);
+ERROR:  column "pt01" does not exist
+LINE 1: insert into prescription values(pt01,dr01, md03);
+                                        ^
+dbmslab3=# insert into prescription values("pt01","dr01", "md03");
+ERROR:  column "pt01" does not exist
+LINE 1: insert into prescription values("pt01","dr01", "md03");
+                                        ^
+dbmslab3=# insert into prescription values('pt01','dr01', 'md03');
+INSERT 0 1
+dbmslab3=# insert into prescription values('pt02','dr01', 'md03');
+INSERT 0 1
+dbmslab3=# insert into prescription values('pt02','dr01', 'md04');
+INSERT 0 1
+dbmslab3=# insert into prescription values('pt04','dr05', 'md02');
+INSERT 0 1
+dbmslab3=# insert into prescription values('pt03','dr05', 'md02');
+INSERT 0 1
+dbmslab3=# insert into bed_patient values('pt03','bd01', '01-02-2012','05-02-2012');
+INSERT 0 1
+dbmslab3=# insert into bed_patient values('pt01','bd02', '05-09-2012','05-09-2012');
+INSERT 0 1
+dbmslab3=# insert into bed_patient values('pt04','bd03', '05-09-2012','09-09-2012');
+INSERT 0 1
+dbmslab3=# insert into bed_patient values('pt04','bd04', '05-10-2012','09-10-2012');
+INSERT 0 1
+dbmslab3=# insert into bed_patient values('pt01','bd05', '05-10-2012','19-10-2012');
+INSERT 0 1
+dbmslab3=# table doctor
+dbmslab3-# ;
+ d_id |  d_name  |  d_phone
+------+----------+------------
+ dr01 | Dr. ABC  | 9021002991
+ dr02 | Dr. DEF  | 7011548672
+ dr03 | Dr. GEH  | 7011548778
+ dr04 | Dr. HGH  | 7111548778
+ dr05 | Dr. PHGH | 7131154877
+(5 rows)
+
+
+dbmslab3=# table patient;
+ p_id |  p_name   | diagnosis | age
+------+-----------+-----------+-----
+ pt01 | Mr. PHGH  | Pneumonia |  10
+ pt02 | Mr. PPPH  | Covid     |  39
+ pt03 | Mr. SSH   | Diabetes  |  49
+ pt04 | Mr. SPPLH | NA        |  48
+ pt05 | Mrs. SPPL | NA        |  78
+(5 rows)
+
+
+dbmslab3=# table medicine;
+ med_id | med_name
+--------+-----------
+ md01   | PlkSP-520
+ md02   | PLLP
+ md03   | PLLP#44
+ md04   | LLGP-234
+ md05   | LGP-440
+(5 rows)
+
+
+dbmslab3=# table prescription;
+ p_id | d_id | med_id
+------+------+--------
+ pt01 | dr01 | md03
+ pt02 | dr01 | md03
+ pt02 | dr01 | md04
+ pt04 | dr05 | md02
+ pt03 | dr05 | md02
+(5 rows)
+
+
+dbmslab3=# table bed;
+ b_id | ward_no
+------+---------
+ bd01 |       1
+ bd02 |       1
+ bd03 |       2
+ bd04 |       2
+ bd05 |       3
+(5 rows)
+
+
+dbmslab3=# table bed_patient;
+ p_id | b_id |  in_date   |  out_date
+------+------+------------+------------
+ pt03 | bd01 | 01-02-2012 | 05-02-2012
+ pt01 | bd02 | 05-09-2012 | 05-09-2012
+ pt04 | bd03 | 05-09-2012 | 09-09-2012
+ pt04 | bd04 | 05-10-2012 | 09-10-2012
+ pt01 | bd05 | 05-10-2012 | 19-10-2012
+(5 rows)
+
+
+dbmslab3=# \d Prescription
+        Table "public.prescription"
+ Column |         Type         | Modifiers
+--------+----------------------+-----------
+ p_id   | character varying(4) |
+ d_id   | character varying(4) |
+ med_id | character varying(4) |
+Foreign-key constraints:
+    "fk1" FOREIGN KEY (d_id) REFERENCES doctor(d_id)
+    "fk11" FOREIGN KEY (med_id) REFERENCES medicine(med_id)
+    "fk2" FOREIGN KEY (p_id) REFERENCES patient(p_id)
+
+
+dbmslab3=# \d doctor
+            Table "public.doctor"
+ Column  |         Type          | Modifiers
+---------+-----------------------+-----------
+ d_id    | character varying(4)  | not null
+ d_name  | text                  |
+ d_phone | character varying(10) |
+Indexes:
+    "pk" PRIMARY KEY, btree (d_id)
+Referenced by:
+    TABLE "prescription" CONSTRAINT "fk1" FOREIGN KEY (d_id) REFERENCES doctor(d_id)
+
+
+dbmslab3=# \d medicine
+           Table "public.medicine"
+  Column  |         Type         | Modifiers
+----------+----------------------+-----------
+ med_id   | character varying(4) | not null
+ med_name | text                 |
+Indexes:
+    "pk3" PRIMARY KEY, btree (med_id)
+Referenced by:
+    TABLE "prescription" CONSTRAINT "fk11" FOREIGN KEY (med_id) REFERENCES medicine(med_id)
+
+
+dbmslab3=# \d bed
+             Table "public.bed"
+ Column  |         Type         | Modifiers
+---------+----------------------+-----------
+ b_id    | character varying(4) | not null
+ ward_no | integer              |
+Indexes:
+    "pk4" PRIMARY KEY, btree (b_id)
+Referenced by:
+    TABLE "bed_patient" CONSTRAINT "fk4" FOREIGN KEY (b_id) REFERENCES bed(b_id)
+
+
+dbmslab3=# \d patient
+            Table "public.patient"
+  Column   |         Type         | Modifiers
+-----------+----------------------+-----------
+ p_id      | character varying(4) | not null
+ p_name    | text                 |
+ diagnosis | text                 |
+ age       | integer              |
+Indexes:
+    "pk2" PRIMARY KEY, btree (p_id)
+Referenced by:
+    TABLE "prescription" CONSTRAINT "fk2" FOREIGN KEY (p_id) REFERENCES patient(p_id)
+    TABLE "bed_patient" CONSTRAINT "fk3" FOREIGN KEY (p_id) REFERENCES patient(p_id)
+
+
+dbmslab3=# \d bed_patient
+          Table "public.bed_patient"
+  Column  |         Type          | Modifiers
+----------+-----------------------+-----------
+ p_id     | character varying(4)  |
+ b_id     | character varying(4)  |
+ in_date  | character varying(10) |
+ out_date | character varying(10) |
+Foreign-key constraints:
+    "fk3" FOREIGN KEY (p_id) REFERENCES patient(p_id)
+    "fk4" FOREIGN KEY (b_id) REFERENCES bed(b_id)
+
+
+dbmslab3=#

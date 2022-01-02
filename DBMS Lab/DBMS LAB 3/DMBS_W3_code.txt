@@ -1,0 +1,44 @@
+create database PES1UG19CS032_LAB3 ;
+
+psql pes1ug19cs032_lab3
+
+create table Doctor		(d_id varchar(3), 	d_name varchar(32), 	d_phone varchar(20),			PRIMARY KEY (d_id)) ;
+create table Patient		(p_id varchar(3),	p_name varchar(32),	diagnosis varchar(32),	age int, 	PRIMARY KEY (p_id)) ;
+create table Medicine		(med_id varchar(3),	med_name varchar(32),						PRIMARY KEY (med_id)) ;
+create table Prescription	(p_id varchar(3),	d_id varchar(3),	med_id varchar(3)) ;
+create table Bed		(b_id varchar(3),	ward_no varchar(3), 						PRIMARY KEY (b_id)) ;
+create table Bed_Patient	(p_id varchar(3),	b_id varchar(3), 	in_date date,	out_date date) ;
+
+alter table Prescription add constraint fk1 foreign key (p_id)references Patient(p_id);
+alter table Prescription add constraint fk2 foreign key (d_id)references Doctor(d_id);
+
+alter table Bed_Patient add constraint fk3 foreign key (p_id)references Patient(p_id);
+alter table Bed_Patient add constraint fk4 foreign key (b_id)references Bed(b_id);
+
+
+insert into Doctor(d_id, d_name, d_phone) values('D01', 'Bob', '9240442123');
+insert into Doctor(d_id, d_name, d_phone) values('D02', 'Jack', '9247472828');
+insert into Doctor(d_id, d_name, d_phone) values('D03', 'Anu', '9660646163');
+
+insert into Patient(p_id, p_name, diagnosis, age) values('P01', 'Alice', 'Sick', 20);
+insert into Patient(p_id, p_name, diagnosis, age) values('P02', 'Raj', 'Not Sick', 21);
+insert into Patient(p_id, p_name, diagnosis, age) values('P03', 'Mal', 'Very Sick', 30);
+
+insert into Medicine(med_id, med_name) values('M01', 'Dolo');
+insert into Medicine(med_id, med_name) values('M02', 'Paracetamol');
+insert into Medicine(med_id, med_name) values('M03', 'Gelocyl');
+
+insert into Bed(b_id, ward_no) values('B01', '12');
+insert into Bed(b_id, ward_no) values('B02', '12');
+insert into Bed(b_id, ward_no) values('B03', '13');
+insert into Bed(b_id, ward_no) values('B04', '13');
+insert into Bed(b_id, ward_no) values('B05', '14');
+insert into Bed(b_id, ward_no) values('B06', '14');
+
+
+insert into Prescription(p_id, d_id, med_id) values('P01', 'D01', 'M01');
+insert into Prescription(p_id, d_id, med_id) values('P02', 'D02', 'M02');
+insert into Prescription(p_id, d_id, med_id) values('P03', 'D02', 'M03');
+
+insert into Bed_Patient(p_id, b_id, in_date, out_date) values('P01', 'B01', '2020-02-13', '2020-03-10');
+insert into Bed_Patient(p_id, b_id, in_date, out_date) values('P03', 'B04', '2020-01-15', '2020-06-10');
